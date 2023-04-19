@@ -37,7 +37,7 @@ export class NewCategoryComponent implements OnInit {
 
     if (this._data != null) {
       //Actualizar category
-      this._categoryService.updateCategorie(category, this._data.id).subscribe((datos: any) => {
+      this._categoryService.updateCategory(category, this._data.id).subscribe((datos: any) => {
         this.dialogRef.close(1);
       }, (err) => {
         this.dialogRef.close(2);

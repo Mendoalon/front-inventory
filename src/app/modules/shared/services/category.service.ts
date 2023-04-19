@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { RespCategories } from 'src/app/core/intefaces/RespCategories';
+import { Category, RespCategories } from 'src/app/core/intefaces/RespCategories';
 import { environment } from 'src/environments/environment';
 
 
@@ -30,7 +30,7 @@ export class CategoryService {
    * @param body 
    * @returns 
    */
-  saveCategory(body: any) {
+  saveCategory(body: Category) {
     const endpoind = `${this.base_url}/categories`;
     return this.http.post(endpoind, body)
   }
@@ -41,10 +41,19 @@ export class CategoryService {
    * @param id 
    * @returns 
    */
-  updateCategorie(body: any, id: any) {
+  updateCategory(body: Category, id: number) {
     const endpoind = `${this.base_url}/categories/${id}`;
     return this.http.put(endpoind, body)
 
+  }
+
+  /**
+   * Eliminar una categoria.
+   * @param id 
+   */
+  deleteCategorie(id: number) {
+    const endpoind = `${this.base_url}/categories/${id}`;
+    return this.http.delete(endpoind)
   }
 
 
