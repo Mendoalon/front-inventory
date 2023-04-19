@@ -6,12 +6,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CategoryComponent } from './components/category/category.component';
+import { NewCategoryComponent } from './components/new-category/new-category.component';
 
 
 
 @NgModule({
   declarations: [
-    CategoryComponent
+    CategoryComponent,
+    NewCategoryComponent
   ],
   imports: [
     CommonModule,
@@ -19,6 +21,6 @@ import { CategoryComponent } from './components/category/category.component';
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule
-    ]
+  ]
 })
 export class CategoryModule { }

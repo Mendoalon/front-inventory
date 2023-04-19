@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { RespCategories } from 'src/app/core/intefaces/RespCategories';
 import { environment } from 'src/environments/environment';
-import { Category } from '../../../core/intefaces/RespCategories';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getCategories(): Observable<RespCategories>{
+  getCategories(): Observable<RespCategories> {
 
     const endpoind = `${this.base_url}/categories`
 
@@ -23,5 +23,9 @@ export class CategoryService {
 
   }
 
+  saveCategory(body: any) {
+    const endpoind = `${this.base_url}/categories`;
+    return this.http.post(endpoind, body)
+  }
 
 }

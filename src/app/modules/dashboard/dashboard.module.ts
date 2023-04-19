@@ -6,6 +6,7 @@ import { DashboardComponent } from './pages/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { SharedModule } from '../shared/shared.module';
 import { CategoryModule } from '../category/category.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { CategoryModule } from '../category/category.module';
     DashboardRoutingModule,
     SharedModule,
     CategoryModule
+
   ]
 })
 export class DashboardModule { }
