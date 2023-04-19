@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../../../shared/services/category.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Category } from 'src/app/core/intefaces/RespCategories';
 
 @Component({
   selector: 'app-new-category',
@@ -10,34 +11,58 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class NewCategoryComponent implements OnInit {
   categoryForm: FormGroup;
+  nameForm: string = "Crear";
 
   constructor(private _categoryService: CategoryService,
-              public fb: FormBuilder,
-              private dialogRef: MatDialogRef<NewCategoryComponent>) {
+    public fb: FormBuilder,
+    private dialogRef: MatDialogRef<NewCategoryComponent>,
+    @Inject(MAT_DIALOG_DATA) public _data: Category) {
+    this.nameForm = "Agregar";
     this.categoryForm = fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
     });
+
+    if (_data != null) {
+      this.updateForm(_data);
+      this.nameForm = "Actualizar";
+    }
   }
 
   ngOnInit(): void {
   }
 
   onSave() {
+    let category = this.categoryForm.value;
 
-    if (this.categoryForm.valid) {
-      let category = this.categoryForm.value;
-      this._categoryService.saveCategory(category).subscribe(data => {
-        console.log(data);
+    if (this._data != null) {
+      //Actualizar category
+      this._categoryService.updateCategorie(category, this._data.id).subscribe((datos: any) => {
+        this.dialogRef.close(1);
+      }, (err) => {
+        this.dialogRef.close(2);
+      })
+
+    } else {
+      //Crear category
+      this._categoryService.saveCategory(category).subscribe((datos: any) => {
         this.dialogRef.close(1);
       }, (error: any) => {
         this.dialogRef.close(2);
       });
-    }
 
+    }
   }
+
   onCancel() {
     this.dialogRef.close(3);
+  }
+
+  updateForm(data: Category) {
+    this.categoryForm = this.fb.group({
+      name: [data.name, Validators.required],
+      description: [data.description, Validators.required],
+    });
   }
 
 }

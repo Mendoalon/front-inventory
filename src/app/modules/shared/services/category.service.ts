@@ -13,19 +13,39 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Optener todas las categorias.
+   * @returns 
+   */
   getCategories(): Observable<RespCategories> {
-
     const endpoind = `${this.base_url}/categories`
 
     return this.http.get<any>(endpoind).pipe(
       map(response => response.categoryResponse)
     )
-
   }
 
+  /**
+   * Guardar una categoria.
+   * @param body 
+   * @returns 
+   */
   saveCategory(body: any) {
     const endpoind = `${this.base_url}/categories`;
     return this.http.post(endpoind, body)
   }
+
+  /**
+   * Actualizar una categoria.
+   * @param body 
+   * @param id 
+   * @returns 
+   */
+  updateCategorie(body: any, id: any) {
+    const endpoind = `${this.base_url}/categories/${id}`;
+    return this.http.put(endpoind, body)
+
+  }
+
 
 }
