@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { Category, RespCategories } from 'src/app/core/intefaces/RespCategories';
 import { environment } from 'src/environments/environment';
 
@@ -54,6 +54,15 @@ export class CategoryService {
   deleteCategorie(id: number) {
     const endpoind = `${this.base_url}/categories/${id}`;
     return this.http.delete(endpoind)
+  }
+
+  getCategoryById(id: number): Observable<RespCategories> {
+
+    const endpoind = `${this.base_url}/categories/${id}`;
+    
+    return this.http.get(endpoind).pipe(
+      map((response:any) => response.categoryResponse.category)
+    )
   }
 
 

@@ -55,12 +55,6 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  openSnackBar(message: string, action: string): MatSnackBarRef<SimpleSnackBar> {
-
-    return this._snackBar.open(message, action, {
-      duration: 2000
-    })
-  }
 
  editCategory(id: number,name: string,description: string){
   const dialogRef = this._dialog.open(NewCategoryComponent, {
@@ -95,9 +89,28 @@ export class CategoryComponent implements OnInit {
     
   }
 
+  sendById(termino: string){
+
+    if(termino.length === 0){
+      return this.getCategories()
+    }
+
+    let id = parseInt(termino);
+   this._categoryService.getCategoryById(id).subscribe((resp:any) => {   
+     this.dataSource = resp;
+   },(error)=>{
+    this.dataSource = [];
+   })
 }
 
+openSnackBar(message: string, action: string): MatSnackBarRef<SimpleSnackBar> {
 
+  return this._snackBar.open(message, action, {
+    duration: 2000
+  })
+}
+
+}
 
 
 
