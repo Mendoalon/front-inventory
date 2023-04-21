@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../../shared/services/category.service';
-import { Category, CategoryResponse } from 'src/app/core/intefaces/RespCategories';
+import { Category } from 'src/app/core/intefaces/RespCategories';
 import { MatDialog } from '@angular/material/dialog';
 import { NewCategoryComponent } from '../new-category/new-category.component';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
-import { Action } from 'rxjs/internal/scheduler/Action';
+
 import { ConfirmComponent } from 'src/app/modules/shared/components/confirm/confirm.component';
 
 
