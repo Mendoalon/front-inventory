@@ -17,6 +17,9 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Optener todos los productos
+   */
   getProduct(): Observable<Product[]> {
     const endpoind = `${this.base_url}/products`;
 
@@ -29,5 +32,17 @@ export class ProductService {
       );
   }
 
+  saveProduct(product:any) {
+
+    const upLoadImgData = new FormData();
+    upLoadImgData.append('picture', product.picture, product.picture.name); 
+    upLoadImgData.append('name', product.name);  
+    upLoadImgData.append('price', product.price);  
+    upLoadImgData.append('account', product.account);  
+    upLoadImgData.append('categoryId', product.category);  
+
+    const endpoind = `${this.base_url}/products`;
+    return this.http.post(endpoind, upLoadImgData );
+  }
 
 }

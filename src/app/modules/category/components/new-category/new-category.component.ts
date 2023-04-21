@@ -14,20 +14,22 @@ export class NewCategoryComponent implements OnInit {
   nameForm: string = "Crear";
 
   constructor(private _categoryService: CategoryService,
-    public fb: FormBuilder,
-    private dialogRef: MatDialogRef<NewCategoryComponent>,
-    @Inject(MAT_DIALOG_DATA) public _data: Category) {
-    this.nameForm = "Agregar";
-    this.categoryForm = fb.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-    });
+              public fb: FormBuilder,
+              private dialogRef: MatDialogRef<NewCategoryComponent>,
+              @Inject(MAT_DIALOG_DATA) public _data: Category) 
+              
+              {
+                this.nameForm = "Agregar";
+                this.categoryForm = fb.group({
+                name: ['', Validators.required],
+                description: ['', Validators.required],
+                });
 
-    if (_data != null) {
-      this.updateForm(_data);
-      this.nameForm = "Actualizar";
-    }
-  }
+                if (_data != null) {
+                 this.updateForm(_data);
+                 this.nameForm = "Actualizar";
+                }
+              }
 
   ngOnInit(): void {
   }
