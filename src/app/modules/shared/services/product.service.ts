@@ -66,6 +66,14 @@ export class ProductService {
     return this.http.put(endpoind, upLoadImgData)
   }
 
-
+  /**
+   * Eliminar un producto.
+   * @param id 
+   */
+  deleteProduct(id: number): Observable<any>{
+    const endpoind = `${this.base_url}/products/${id}`;
+    
+    return this.http.delete(endpoind);
+  }
 
 }

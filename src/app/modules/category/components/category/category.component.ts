@@ -74,7 +74,7 @@ export class CategoryComponent implements OnInit {
 
   deleteCategory(id:number){
     const dialogRef = this._dialog.open(ConfirmComponent, {
-      data: {id},
+      data: {id, mudule: "category"},
     });
     
   

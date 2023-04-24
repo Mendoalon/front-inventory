@@ -4,6 +4,7 @@ import { Product } from 'src/app/core/intefaces/RespProducts';
 import { NewProductComponent } from '../new-product/new-product.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
+import { ConfirmComponent } from 'src/app/modules/shared/components/confirm/confirm.component';
 
 
 
@@ -54,8 +55,21 @@ export class ProductComponent implements OnInit {
     
   }
 
-  deleteCategory(id: any){
-
+  deleteProduct(id: any){
+    const dialogRef = this._dialog.open(ConfirmComponent, {
+      data: {id, mudule: "product"},
+    });
+    
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        this.openSnackBar('Producto Eliminado', "Exito");
+        this.getProduct();
+      } else if (result === 2) {
+        this.openSnackBar('Se produjo un error al eliminar la producto', "Error");
+      }
+    });
+    
   }
 
   openProductDialog(){
