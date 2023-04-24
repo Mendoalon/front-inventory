@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 import { Product, ProductResponse } from 'src/app/core/intefaces/RespProducts';
 
 
@@ -74,6 +74,15 @@ export class ProductService {
     const endpoind = `${this.base_url}/products/${id}`;
     
     return this.http.delete(endpoind);
+  }
+
+  getByName(nombre: any): Observable<any>{
+    
+    const endpoind = `${this.base_url}/products/filter/${nombre}`;
+    return this.http.get(endpoind).pipe(
+      map((response:any) => response.productResponse.products)    
+    )
+    
   }
 
 }

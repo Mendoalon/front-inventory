@@ -94,8 +94,20 @@ export class ProductComponent implements OnInit {
     })
   }
 
-  sendById(num: any){
-
+  buscar(nombre: any){
+   if(nombre.length === 0){
+    return this.getProduct();
+    
+   }else{
+    this._productService.getByName(nombre).subscribe((producto: any) => {
+      producto.forEach((product:any) => {        
+        product.picture = 'data:image/jpeg;base64,'+ product.picture;
+        //product.category = product.category.name;
+        this.dataSource = [...producto];    
+      });       
+      
+    });
+   }
   }
 
 }
