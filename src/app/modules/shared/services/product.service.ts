@@ -32,7 +32,10 @@ export class ProductService {
       );
   }
 
-  saveProduct(product:any) {
+    /**
+   * Guardar producto
+   */
+  saveProduct(product:any): Observable<any> {
 
     const upLoadImgData = new FormData();
     upLoadImgData.append('picture', product.picture, product.picture.name); 
@@ -45,5 +48,24 @@ export class ProductService {
     
     return this.http.post(endpoind, upLoadImgData );
   }
+
+  /**
+   * Actualizar producto.
+   */
+  updateProduct(product: any, id: number): Observable<any>{
+    const upLoadImgData = new FormData();
+
+    upLoadImgData.append('picture', product.picture, product.picture.name); 
+    upLoadImgData.append('name', product.name);  
+    upLoadImgData.append('price', product.price);  
+    upLoadImgData.append('account', product.account);  
+    upLoadImgData.append('categoryId', product.category); 
+
+    const endpoind = `${this.base_url}/products/${id}`;
+
+    return this.http.put(endpoind, upLoadImgData)
+  }
+
+
 
 }

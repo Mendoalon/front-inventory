@@ -29,7 +29,7 @@ export class ProductComponent implements OnInit {
     this._productService.getProduct().subscribe((producto: any) => {
       producto.forEach((product:any) => {        
         product.picture = 'data:image/jpeg;base64,'+ product.picture;
-        product.category = product.category.name;
+        //product.category = product.category.name;
         this.dataSource = [...producto];    
       });       
       
@@ -37,8 +37,21 @@ export class ProductComponent implements OnInit {
 
   }
 
-  editCategory(nu1:any, nu2:any, nu3:any){
+  editProduct(id:number, name:string, price:number, account:number, category:any ){
+    const dialogRef = this._dialog.open(NewProductComponent, {
+      data: {id: id, name: name, price: price, account: account, category: category },
+      width: '450px'
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        this.openSnackBar('Producto Actualizada', "Exito");
+        this.getProduct();
+      } else if (result === 2) {
+        this.openSnackBar('Se produjo un error al actualizar la producto', "Error");
+      }
+    });
+    
   }
 
   deleteCategory(id: any){

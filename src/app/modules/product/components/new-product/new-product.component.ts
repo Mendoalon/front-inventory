@@ -31,7 +31,12 @@ nameImg: string= "";
                   account: ['', Validators.required],
                   category: ['', Validators.required],
                   picture: ['', Validators.required]
-                });  
+                }); 
+                if(_data != null){
+                  this.updateProduct(_data);
+                  this.nameForm ="Actualizar"
+                } 
+
               }
 
   ngOnInit(): void {
@@ -40,14 +45,21 @@ nameImg: string= "";
 
   
   onSave(){
-    if(this.productForm.invalid){
-      return
-    }
+   
    
     let {name,price,account,category } = this.productForm.value;
-    let data = { name, price, account, category, picture: this.selectFile}
+    let data = {name, price, account, category, picture: this.selectFile}
     
-    if(data.picture!= null){
+    if(this._data != null){
+      //Update product  
+      this._ProductService.updateProduct(data, this._data.id).subscribe((data:any) => {
+        this.dialogRef.close(1);    
+      },(error:any)=>{
+        this.dialogRef.close(2);
+      });
+
+    }else{
+      //Crear product  
       this._ProductService.saveProduct(data).subscribe((data:any) => {
         this.dialogRef.close(1);    
       },(error:any)=>{
@@ -55,11 +67,21 @@ nameImg: string= "";
       })
     }
 
-     
-
-    
-  
 }
+
+
+updateProduct(product:any){
+  
+  this.productForm = this.fb.group({
+    name: [product.name, Validators.required],
+    price: [product.price, Validators.required],
+    account: [product.account, Validators.required],
+    category: [product.category.id, Validators.required],
+    picture: ['', Validators.required]
+  }); 
+
+}     
+
 
 onCancel(){
   this.dialogRef.close(3);
