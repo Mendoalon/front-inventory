@@ -42,6 +42,7 @@ export class ProductService {
     upLoadImgData.append('categoryId', product.category);  
 
     const endpoind = `${this.base_url}/products`;
+    
     return this.http.post(endpoind, upLoadImgData );
   }
 

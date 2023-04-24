@@ -40,15 +40,26 @@ nameImg: string= "";
 
   
   onSave(){
-     let {name,price,account,category } = this.productForm.value;
+    if(this.productForm.invalid){
+      return
+    }
+   
+    let {name,price,account,category } = this.productForm.value;
     let data = { name, price, account, category, picture: this.selectFile}
+    
+    if(data.picture!= null){
+      this._ProductService.saveProduct(data).subscribe((data:any) => {
+        this.dialogRef.close(1);    
+      },(error:any)=>{
+        this.dialogRef.close(2);
+      })
+    }
 
-    this._ProductService.saveProduct(data).subscribe((data:any) => {
-      this.dialogRef.close(1);    
-    },(error:any)=>{
-      this.dialogRef.close(2);
-    })
-  }
+     
+
+    
+  
+}
 
 onCancel(){
   this.dialogRef.close(3);

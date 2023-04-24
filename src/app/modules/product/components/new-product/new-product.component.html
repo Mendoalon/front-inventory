@@ -49,7 +49,7 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-    <button (click)="onSave()" [disabled]="productForm.valid"
+    <button (click)="onSave()" [disabled]="productForm.invalid"
             mat-button color="primary">
         <mat-icon>save</mat-icon>Crear
     </button>
